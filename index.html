@@ -10,6 +10,9 @@
     <meta name="theme-color" content="#0f172a">
     <link rel="manifest" href="manifest.json">
     
+    <!-- Принудительный HTTPS -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    
     <title>DeepSeek Voice — «Дипсик» и «Отправляй»</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -224,6 +227,21 @@
     timeoutSlider.addEventListener('input', (e) => {
         silenceTimeoutSec = parseFloat(e.target.value);
         timeoutValueDisplay.innerText = silenceTimeoutSec.toFixed(1) + ' сек';
+    });
+    
+    // Звук при движении ползунка
+    timeoutSlider.addEventListener('input', () => {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.frequency.value = 1200;
+        gainNode.gain.value = 0.05;
+        oscillator.start();
+        gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.1);
+        oscillator.stop(audioCtx.currentTime + 0.1);
+        audioCtx.resume();
     });
     
     function updateWakeUI(listening, isAwakeMode = false) {
