@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    
+    <!-- PWA мета-теги -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="manifest" href="manifest.json">
+    
     <title>DeepSeek Voice — «Дипсик» и «Отправляй»</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -213,7 +220,7 @@
     
     if (apiKey) apiKeyInput.value = apiKey;
     
-    // ИСПРАВЛЕНО: отображение секунд при движении ползунка
+    // Отображение секунд при движении ползунка
     timeoutSlider.addEventListener('input', (e) => {
         silenceTimeoutSec = parseFloat(e.target.value);
         timeoutValueDisplay.innerText = silenceTimeoutSec.toFixed(1) + ' сек';
