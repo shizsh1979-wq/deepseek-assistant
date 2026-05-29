@@ -3,6 +3,7 @@
   "short_name": "DeepVoice",
   "description": "Голосовой помощник с DeepSeek, триггерные фразы «Дипсик» и «Отправляй»",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "theme_color": "#0f172a",
   "background_color": "#0f172a",
