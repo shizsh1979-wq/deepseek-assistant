@@ -1,0 +1,19 @@
+{
+  "android": {
+    "permissions": [
+      "android.permission.RECORD_AUDIO",
+      "android.permission.MODIFY_AUDIO_SETTINGS",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.FOREGROUND_SERVICE_MICROPHONE"
+    ],
+    "features": [
+      {
+        "name": "android.hardware.microphone",
+        "required": true
+      }
+    ],
+    "serviceWorker": {
+      "src": "service-worker.js"
+    }
+  }
+}
