@@ -1,5 +1,5 @@
-// Service Worker для DeepSeek Voice Assistant
-const CACHE_NAME = 'deepseek-voice-v1';
+// DeepSeek Voice Assistant - Service Worker
+const CACHE_NAME = 'deepseek-voice-v2';
 const urlsToCache = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const urlsToCache = [
   './icon-512.png'
 ];
 
-// Установка service worker и кеширование файлов
+// Установка service worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -17,24 +17,40 @@ self.addEventListener('install', event => {
         return cache.addAll(urlsToCache);
       })
   );
+  // Активируем сразу
+  self.skipWaiting();
 });
 
-// Перехват запросов и ответ из кеша (офлайн-режим)
+// Перехват запросов
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Если файл есть в кеше — возвращаем его
         if (response) {
           return response;
         }
-        // Иначе идём в сеть
-        return fetch(event.request);
+        // Если не нашли в кеше — идём в сеть
+        return fetch(event.request).then(response => {
+          // Не кешируем ответы от API (DeepSeek)
+          if (event.request.url.includes('api.deepseek.com')) {
+            return response;
+          }
+          // Кешируем остальные успешные ответы
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          return response;
+        });
       })
   );
 });
 
-// Обновление service worker и очистка старого кеша
+// Обновление service worker
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -48,4 +64,6 @@ self.addEventListener('activate', event => {
       );
     })
   );
+  // Захватываем контроль над страницами
+  event.waitUntil(self.clients.claim());
 });
