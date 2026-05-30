@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.shizsh.deepseekvoice.v2",
+    "package_name": "io.github.shizsh1979_wq.twa",
     "sha256_cert_fingerprints": ["CE:88:88:A0:FB:99:CF:26:1F:06:55:67:89:E9:13:9E:A3:E5:08:4D:70:08:DF:4E:8F:AD:CB:3F:FC:BD:64:89"]
   }
 }]
