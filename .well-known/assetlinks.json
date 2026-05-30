@@ -3,6 +3,6 @@
   "target": {
     "namespace": "android_app",
     "package_name": "com.shizsh.deepseekvoice.v2",
-    "sha256_cert_fingerprints": ["3D:9E:F7:F9:BF:E1:E8:DB:6A:E0:DC:39:35:87:4E:5B:95:FE:C0:49:89:19:E4:ED:5E:40:6C:F7:7E:19:68:FF"]
+    "sha256_cert_fingerprints": ["CE:88:88:A0:FB:99:CF:26:1F:06:55:67:89:E9:13:9E:A3:E5:08:4D:70:08:DF:4E:8F:AD:CB:3F:FC:BD:64:89"]
   }
 }]
